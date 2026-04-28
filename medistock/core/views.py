@@ -22,3 +22,20 @@ def login_view(request):
                 return redirect("finanzas")
             
     return render(request, "core/login.html")
+
+
+def cliente_view(request):
+    productos = Producto.objects.all()
+    return render(request, "core/cliente.html", {"productos": productos})
+
+def ejecutivo_view(request):
+    productos = Producto.objects.all()
+    return render(request, "core/ejecutivo.html", {"productos": productos})
+
+def logistica_view(request):
+    productos = Producto.objects.all()
+    return render(request, "core/logistica.html", {"productos": productos})
+
+def finanzas_view(request):
+    productos = Producto.objects.all()
+    return render(request, "core/finanzas.html", {"productos": productos})
