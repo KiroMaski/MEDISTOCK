@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Producto, Pedido
-from .serializers import ProductoSerializer
+from .serializers import ProductoSerializer, PedidoSerializer
 
 @api_view(['GET'])
 def productos_api(request):
@@ -45,6 +45,29 @@ def eliminar_producto(request, id):
 
 @api_view(['GET'])
 def lista_pedidos(request):
-    pedidos = pedido.objects.all()
+    pedidos = Pedido.objects.all()
     serializer = PedidoSerializer(pedidos, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def crear_pedido(request):
+    serializer = PedidoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
+
+@api_view(['POST'])
+def pagar(request):
+    return Response({
+        "estado": "aprobado",
+        "mensaje": "Pago realizado con éxito"
+        })
+
+@api_view(['GET'])
+def tracking(request, id):
+    return Response({
+        "pedido": id,
+        "estado": "en camino",
+        "ubicacion": "Santiago"
+        })

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from . import views
+from . import views, api_views
 from .api_views import productos_api
 
 urlpatterns = [
@@ -13,4 +13,16 @@ urlpatterns = [
 
 urlpatterns += [
     path('api/productos/', productos_api),
+]
+
+urlpatterns = [
+    path('api/productos/', api_views.lista_productos),
+    path('api/productos/<int:id>/', api_views.detalle_producto),
+    path('api/productos/crear/', api_views.crear_producto),
+    path('api/productos/actualizar/<int:id>/', api_views.actualizar_producto),
+    path('api/productos/eliminar/<int:id>/', api_views.eliminar_producto),
+    path('api/pedidos/', api_views.lista_pedidos),
+    path('api/pedidos/crear/', api_views.crear_pedido),
+    path('api/pagar/', api_views.pagar),
+    path('api/tracking/<int:id>/', api_views.tracking),
 ]
