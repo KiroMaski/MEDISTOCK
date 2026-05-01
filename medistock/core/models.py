@@ -18,4 +18,6 @@ class Producto(models.Model):
 class Pedido(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     estado = models.CharField(max_length=50)
+    productos = models.ManyToManyField(Producto)
+    fecha = models.DateTimeField(auto_now_add=True)
     total = models.IntegerField()

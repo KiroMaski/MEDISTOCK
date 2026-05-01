@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from .models import Producto
 
 def login_view(request):
     if request.method == "POST":
@@ -26,16 +27,16 @@ def login_view(request):
 
 def cliente_view(request):
     productos = Producto.objects.all()
-    return render(request, "core/cliente.html", {"productos": productos})
+    return render(request, "cliente.html", {"productos": productos})
 
 def ejecutivo_view(request):
     productos = Producto.objects.all()
-    return render(request, "core/ejecutivo.html", {"productos": productos})
+    return render(request, "ejecutivo.html", {"productos": productos})
 
 def logistica_view(request):
     productos = Producto.objects.all()
-    return render(request, "core/logistica.html", {"productos": productos})
+    return render(request, "logistica.html", {"productos": productos})
 
 def finanzas_view(request):
     productos = Producto.objects.all()
-    return render(request, "core/finanzas.html", {"productos": productos})
+    return render(request, "finanzas.html", {"productos": productos})

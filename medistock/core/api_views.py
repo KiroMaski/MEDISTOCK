@@ -51,11 +51,15 @@ def lista_pedidos(request):
 
 @api_view(['POST'])
 def crear_pedido(request):
-    serializer = PedidoSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors)
+    productos_data = request.data.pop('productos', [])
+    pedido = Pedido.objects.create()
+    for p in productos_data:
+        try:
+            producto = Producto.objects.get(id=p['id'])
+            pedido.productos.add(producto)
+        except:
+            pass
+    return Response({"mensaje": "Pedido creado"})
 
 @api_view(['POST'])
 def pagar(request):
