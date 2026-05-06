@@ -39,6 +39,8 @@
                         <h2>🛒 Carrito</h2>
                         <ul id="carrito"></ul>
                         <button onclick="enviarPedido()">Finalizar compra</button>
+                        <button onclick="pagar()">Pagar</button>
+                        <a href="/tracking/" class="btn btn-dark">ver tracking </a>
                     </form>
                 </div>
             </div>
@@ -95,7 +97,8 @@
         <!-- Core theme JS-->
         <script src="{% static 'js/scripts.js' %}"></script>
     </body>
-        <script>
+
+<script>
     let carrito = [];
 
     function agregarAlCarrito(id, nombre, precio) {
@@ -133,5 +136,21 @@
             alert("Error al crear pedido ");
         });
     }
-    </script>
+</script>
+
+<script>
+    function pagar(){
+        fetch ("http://127.0.0.1:8000/api/pagar/", {
+            method: "POST"
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("pago realizado con exito");
+        })
+        .catch(err => {
+            alert("eror en el pago");
+        });
+    }
+</script>
+
 </html>

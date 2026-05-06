@@ -40,3 +40,6 @@ def logistica_view(request):
 def finanzas_view(request):
     productos = Producto.objects.all()
     return render(request, "finanzas.html", {"productos": productos})
+
+def tracking_view(request):
+    return render(request, "tracking.html")

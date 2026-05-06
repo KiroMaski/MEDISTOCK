@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tracking Pedido</title>
+</head>
+<body>
+
+<h1>estado del pedido</h1>
+
+<p id="estado">cargando...</p>
+
+<script>
+fetch("http://127.0.0.1:8000/api/tracking/1/")
+.then(res => res.json())
+.then(data => {
+    document.getElementById("estado").innerText = data.estado;
+});
+</script>
+
+</body>
+</html>

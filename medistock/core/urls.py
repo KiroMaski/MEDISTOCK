@@ -10,6 +10,7 @@ urlpatterns = [
     path('ejecutivo/', views.ejecutivo_view, name="ejecutivo"),
     path('logistica/', views.logistica_view, name="logistica"),
     path('finanzas/', views.finanzas_view, name="finanzas"),
+    path('tracking/', views.tracking_view, name="Tracking"),
     
     #API
     path('api/productos/', api_views.lista_productos),
