@@ -1,0 +1,14 @@
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="usuario" placeholder="Usuario">
+
+    <select name="rol">
+        <option value="cliente">Cliente</option>
+        <option value="ejecutivo">Ejecutivo</option>
+        <option value="logistica">Logística</option>
+        <option value="finanzas">Finanzas</option>
+    </select>
+
+    <button type="submit">Ingresar</button>
+</form>
