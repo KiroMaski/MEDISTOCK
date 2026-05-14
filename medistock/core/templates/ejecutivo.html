@@ -26,6 +26,8 @@
                     <tr>
                         <th>ID Pedido</th>
                         <th>Fecha</th>
+                        <th>Productos</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
 
@@ -34,6 +36,14 @@
                     <tr>
                         <td>#{{ pedido.id }}</td>
                         <td>{{ pedido.fecha }}</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                {% for producto in pedido.productos.all %}
+                                <li>{{ producto.nombre }} - $ ({{ producto.precio }})</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>${{ pedido.total }}</td>
                     </tr>
                     {% empty %}
                     <tr>

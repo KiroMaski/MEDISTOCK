@@ -1,7 +1,11 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .models import Producto, Pedido
 from .serializers import ProductoSerializer, PedidoSerializer
+from django.views.decorators.csrf import csrf_exempt
+
 
 @api_view(['GET'])
 def productos_api(request):
@@ -51,22 +55,27 @@ def lista_pedidos(request):
 
 @api_view(['POST'])
 def crear_pedido(request):
-    productos_data = request.data.pop('productos', [])
-    pedido = Pedido.objects.create()
-    for p in productos_data:
-        try:
-            producto = Producto.objects.get(id=p['id'])
-            pedido.productos.add(producto)
-        except:
-            pass
-    return Response({"mensaje": "Pedido creado"})
+    pedido = Pedido.objects.create(
+        total=0, 
+        usuario=request.user
+        )
+    productos = request.data.get("productos", [])
+    total = 0
+    for p in productos:
+        producto = Producto.objects.get(id=p["id"])
+        pedido.productos.add(producto)
+        total += producto.precio
+    pedido.total = total
+    pedido.save()
+    return Response({
+        "mensaje": "pedido creado"
+    })
 
 @api_view(['POST'])
 def pagar(request):
     return Response({
-        "estado": "aprobado",
-        "mensaje": "Pago realizado con éxito"
-        })
+        "mensaje": "pago realizado"
+    })
 
 @api_view(['GET'])
 def tracking(request, id):
